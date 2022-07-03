@@ -1,5 +1,17 @@
-import { Link } from "react-router-dom";
+import {useState} from 'react'
+import { Link, useNavigate } from "react-router-dom";
 export default function Navbar() {
+  const navigate = useNavigate()
+
+  const logout = () => {
+    localStorage.clear()
+    alert('logout successful')
+    navigate('/')
+    window.location.reload()
+  }
+
+  let token = localStorage.getItem('token')
+
   return (
     <ul className="nav nav-pills my-2">
       <li className="nav-item">
@@ -18,11 +30,11 @@ export default function Navbar() {
           Dropdown
         </Link>
         <ul className="dropdown-menu">
-          <li>
-            <Link className="dropdown-item" to="/posts">
+          {token && (<li>
+            <Link className="dropdown-item" to="/content">
               Content
             </Link>
-          </li>
+          </li>)}
           <li>
             <hr className="dropdown-divider" />
           </li>
@@ -38,21 +50,26 @@ export default function Navbar() {
           </li>
         </ul>
       </li>
-      <li className="nav-item">
-        <Link className="nav-link" to="/posts">
+      {token && (<li className="nav-item">
+        <Link className="nav-link" to="/content">
           Content
         </Link>
-      </li>
-      <li className="nav-item">
+      </li>)}
+      {!token && (<li className="nav-item">
         <Link className="nav-link" to="/login">
           Login
         </Link>
-      </li>
-      <li className="nav-item">
+      </li>)}
+      {!token && (<li className="nav-item">
         <Link className="nav-link" to="/register">
           Register
         </Link>
-      </li>
+      </li>)}
+      {token && (<li className="nav-item">
+        <Link className="nav-link" to="#" onClick={logout}>
+          Logout
+        </Link>
+      </li>)}
       {/* <li className="nav-item">
         <Link className="nav-link disabled" to="#">Disabled</Link>
       </li> */}

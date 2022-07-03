@@ -1,9 +1,12 @@
 import {useState} from "react";
+import { useNavigate } from "react-router-dom";
 import axios from 'axios'
 
 function Login() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+
+  const navigate = useNavigate()
 
   const hdlSubmit = async (e) => {
     e.preventDefault()
@@ -14,6 +17,8 @@ function Login() {
     if(!token) { return alert('Unauthorize to Login')}
     console.log(res)
     localStorage.setItem('token', token)
+    navigate('/')
+    // navigate('/', {replace: true})
   }
   return (
     <div className="container mt-4 " style={{minWidth : '800px'}}>
