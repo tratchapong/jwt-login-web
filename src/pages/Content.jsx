@@ -12,6 +12,7 @@ function Content() {
       {isLogin && (
         <>
           <h2>You can see the private content now!!!</h2>
+          <img src="https://picsum.photos/800" alt="" />
         </>
       )}
       {!isLogin && (

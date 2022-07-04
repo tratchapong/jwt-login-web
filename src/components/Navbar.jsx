@@ -1,7 +1,11 @@
 import {useState} from 'react'
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 export default function Navbar() {
   const navigate = useNavigate()
+  const location = useLocation()
+  let {pathname : path} = location
+  console.log(path)
+
 
   const logout = () => {
     localStorage.clear()
@@ -15,7 +19,7 @@ export default function Navbar() {
   return (
     <ul className="nav nav-pills my-2">
       <li className="nav-item">
-        <Link className="nav-link active" to="/">
+        <Link className= {`nav-link ${path==='/' && 'active'}`}  to="/">
           Home
         </Link>
       </li>
@@ -51,17 +55,17 @@ export default function Navbar() {
         </ul>
       </li>
       {token && (<li className="nav-item">
-        <Link className="nav-link" to="/content">
+        <Link className={`nav-link ${path==='/content' && 'active'}`} to="/content">
           Content
         </Link>
       </li>)}
       {!token && (<li className="nav-item">
-        <Link className="nav-link" to="/login">
+        <Link className={`nav-link ${path==='/login' && 'active'}`} to="/login">
           Login
         </Link>
       </li>)}
       {!token && (<li className="nav-item">
-        <Link className="nav-link" to="/register">
+        <Link className={`nav-link ${path==='/register' && 'active'}`} to="/register">
           Register
         </Link>
       </li>)}
